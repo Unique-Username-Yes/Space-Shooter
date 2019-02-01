@@ -1,0 +1,27 @@
+Theme: Minimalistic Space Shooter
+Style: Black & White (Might have some coloured acents: red)
+Game mechanics:
+  Controls
+   - WASD fly ship
+   - Rotate ship according to mouse cursor
+   - LMB shoot
+   - RMB special ability?
+   - 1-0 level up skill?
+	 
+  Gameplay
+   - Level up by killing enemies/collecting orbs
+   - Unlock abilities upgrades as level up
+   ? Destroy terrain to progress
+   - Grow in size as level up
+	 
+  Goal
+	 - Reach best personal level
+	 - Destroy as many enemies as posible
+	 
+	Final results show
+	 - Enemies destoied
+	 - Bullets fired
+	 - Miles flown
+	 - Experience collected
+	 - Damage dealt
+	 - ...
