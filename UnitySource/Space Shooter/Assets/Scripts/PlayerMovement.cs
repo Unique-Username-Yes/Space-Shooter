@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static Vector2 pos;
 
     public float speed = 5f;
     public float smoothT = .1f;
@@ -32,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
         // Movement
         Vector2 dirVelocity = dir * speed;
         player.velocity = Vector2.SmoothDamp(player.velocity, dirVelocity, ref vel, smoothT);
+        pos = player.position;
 
         // Rotation
         Vector2 rDir = mousePos - player.position;
