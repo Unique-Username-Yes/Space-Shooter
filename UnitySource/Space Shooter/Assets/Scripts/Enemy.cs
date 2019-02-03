@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(int dmg)
     {
         healthPoints -= dmg;
-        if (healthPoints < 0)
+        if (healthPoints <= 0)
         {
             Death();
         }
