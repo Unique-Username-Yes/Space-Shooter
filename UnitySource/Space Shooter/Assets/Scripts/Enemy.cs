@@ -36,10 +36,10 @@ public class Enemy : MonoBehaviour
     }
 
     // TODO: Detect when colliding with a wall
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         // Hit player
-        if (collision.GetComponent<PlayerMovement>())
+        if (collision.gameObject.GetComponent<PlayerMovement>())
             Destroy(gameObject);
     }
 

@@ -225,7 +225,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -246,7 +246,7 @@ MonoBehaviour:
   healthPoints: 100
   xpWorth: 10
   speed: 10
-  rSpeed: 500
+  rSpeed: 250
 --- !u!1 &6834944859442514973
 GameObject:
   m_ObjectHideFlags: 0
