@@ -13,6 +13,8 @@ public class EnemySpawner : MonoBehaviour
     public float waveCooldown = 10f;
     public int waveSize = 5;
 
+    private bool waveActive = false;
+
     // TODO: change spawning when more enemies created
     public GameObject enemy;
 
@@ -25,22 +27,21 @@ public class EnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (timeUntilNextWave <= 0)
+        if(waveActive && !FindObjectOfType<Enemy>())
         {
-            if (!FindObjectOfType<Enemy>())
+            timeUntilNextWave = waveCooldown;
+            waveActive = false;
+        }
+        if (!waveActive)
+        {
+            if (timeUntilNextWave <= 0)
             {
-                Debug.Log("Spawning");
-                timeUntilNextWave = waveCooldown;
                 SpawnWave();
+                waveActive = true;
             }
             else
-                Debug.Log("Wave not defeated");
+                timeUntilNextWave -= Time.deltaTime;
         }
-        else
-        {
-            timeUntilNextWave -= Time.deltaTime;
-        }
-
     }
 
     void SpawnWave()

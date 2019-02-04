@@ -454,7 +454,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startSpawnRadius: 20
-  currentSpawnRadius: 0
   currentWave: 0
   timeUntilNextWave: 0
   waveCooldown: 10
