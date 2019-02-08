@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public int healthPoints = 100;
-    public int xpWorth = 10;
+    public float healthPoints = 100;
+    public float xpWorth = 10;
 
     private Vector2 target = Vector2.zero;
 
@@ -14,9 +14,12 @@ public class Enemy : MonoBehaviour
 
     Rigidbody2D rb;
 
+    PlayerStats pStats;
+
     // Start is called before the first frame update
     void Start()
     {
+        pStats = FindObjectOfType<PlayerStats>();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -43,7 +46,7 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public void TakeDamage(int dmg)
+    public void TakeDamage(float dmg)
     {
         healthPoints -= dmg;
         if (healthPoints <= 0)
@@ -55,6 +58,7 @@ public class Enemy : MonoBehaviour
     private void Death()
     {
         // TODO: Give xp
+        pStats.GiveXP(xpWorth);
         Destroy(gameObject);
     }
 }

@@ -243,9 +243,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c1200ff8001b9f4faa8bf6cb4b21cc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPoints: 100
+  healthPoints: 1
   xpWorth: 10
-  speed: 10
+  speed: 0
   rSpeed: 250
 --- !u!1 &6834944859442514973
 GameObject:
