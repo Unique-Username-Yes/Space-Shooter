@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\EnemySpawner.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\PlayerStats.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/Work/University Projects/CSC3224/Space Shooter/UnitySource/Space Shooter/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
