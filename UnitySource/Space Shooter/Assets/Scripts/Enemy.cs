@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public int healthPoints = 100;
-    public int xpWorth = 10;
+    public float healthPoints = 100;
+    public float xpWorth = 10;
 
     private Vector2 target = Vector2.zero;
 
@@ -46,7 +46,7 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public void TakeDamage(int dmg)
+    public void TakeDamage(float dmg)
     {
         healthPoints -= dmg;
         if (healthPoints <= 0)
