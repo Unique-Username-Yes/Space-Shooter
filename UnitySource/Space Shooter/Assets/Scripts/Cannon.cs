@@ -6,6 +6,9 @@ public class Cannon : MonoBehaviour
 {
     public GameObject bulletP;
     public Transform gunPoint;
+    public int damage;
+    public float bulletSpeed;
+    public float range;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +25,14 @@ public class Cannon : MonoBehaviour
 
     void Shoot()
     {
-        Instantiate(bulletP, gunPoint.position, gunPoint.rotation);
+        // Set up bullet
+        // Instantiate it at the location of cannon
+        GameObject bullet = Instantiate(bulletP, gunPoint.position, gunPoint.rotation);
+        BaseAmmo ammo = bullet.GetComponent<BaseAmmo>();
+        ammo.Damage = damage;
+        ammo.Speed = bulletSpeed;
+        ammo.Range = range;
+        ammo.StartPos = gunPoint.position;
+        // let it go
     }
 }

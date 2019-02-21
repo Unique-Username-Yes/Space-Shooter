@@ -2,38 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : BaseAmmo
 {
-    public float speed = 10f;
-    public float range = 10f;
-    public int dmg = 10;
-
-    Vector2 initPos;
     Rigidbody2D rb;
 
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.velocity = transform.up * speed;
-        initPos = transform.position;
+        rb.velocity = transform.up * Speed;
     }
 
-    private void Update()
+    protected void Update()
     {
-        if (Vector2.Distance(initPos, transform.position) > range)
+        if (Vector2.Distance(StartPos, transform.position) > Range)
         {
             Destroy(gameObject);
         }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Enemy enemy = collision.GetComponent<Enemy>();
-        if (enemy)
+        else
         {
-            enemy.TakeDamage(dmg);
+            rb.velocity = transform.up * Speed;
         }
-        Destroy(gameObject);
     }
 }
