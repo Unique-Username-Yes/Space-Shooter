@@ -96,7 +96,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletSpeed: 15
   bulletRange: 50
-  bulletDamage: 10
+  bulletDamage: 20
   isEnemyBullet: 0
 --- !u!58 &7365007431978580210
 CircleCollider2D:
