@@ -60,17 +60,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Bullet.cs" />
+    <Compile Include="Assets\Scripts\Ammo\Bullet.cs" />
+    <Compile Include="Assets\Scripts\BaseShip.cs" />
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
-    <Compile Include="Assets\Scripts\Cannon.cs" />
-    <Compile Include="Assets\Scripts\Enemy.cs" />
-    <Compile Include="Assets\Scripts\EnemySpawner.cs" />
-    <Compile Include="Assets\Scripts\Gun.cs" />
-    <Compile Include="Assets\Scripts\Lazer.cs" />
-    <Compile Include="Assets\Scripts\LazerGun.cs" />
+    <Compile Include="Assets\Scripts\DestroyShell.cs" />
+    <Compile Include="Assets\Scripts\EnemyAI\ArrowBrain.cs" />
+    <Compile Include="Assets\Scripts\EnemyAI\StalkerBrain.cs" />
+    <Compile Include="Assets\Scripts\EnemyShip.cs" />
+    <Compile Include="Assets\Scripts\EnemyShipType.cs" />
+    <Compile Include="Assets\Scripts\GameControls.cs" />
+    <Compile Include="Assets\Scripts\Level.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
-    <Compile Include="Assets\Scripts\PlayerStats.cs" />
-    <Compile Include="Assets\Scripts\Weapon System\Ammo\BaseAmmo.cs" />
+    <Compile Include="Assets\Scripts\PlayerProgression.cs" />
+    <Compile Include="Assets\Scripts\PlayerShip.cs" />
+    <Compile Include="Assets\Scripts\PlayerShooting.cs" />
+    <Compile Include="Assets\Scripts\Reward.cs" />
+    <Compile Include="Assets\Scripts\UI\UIControl.cs" />
+    <Compile Include="Assets\Scripts\Wave.cs" />
+    <Compile Include="Assets\Scripts\WaveSpawner.cs" />
+    <Compile Include="Assets\Scripts\Weapons\BaseWeapon.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/Work/University Projects/CSC3224/Space Shooter/UnitySource/Space Shooter/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
