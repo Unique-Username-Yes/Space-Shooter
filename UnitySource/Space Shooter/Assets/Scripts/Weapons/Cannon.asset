@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Cannon
   m_EditorClassIdentifier: 
   bulletP: {fileID: 6125102940565645095, guid: 3471232ab9bb4114dbf257ec51188fab, type: 3}
-  fireRate: 2
+  fireRate: 0
   toHit:
     serializedVersion: 2
     m_Bits: 0

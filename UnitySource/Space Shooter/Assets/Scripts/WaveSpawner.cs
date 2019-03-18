@@ -13,7 +13,7 @@ public class WaveSpawner : MonoBehaviour
 
     private List<GameObject> enemyShips;
 
-    private bool isAllowedToSpawn = true;
+    public bool isAllowedToSpawn = true;
 
     // Start is called before the first frame update
     void Start()

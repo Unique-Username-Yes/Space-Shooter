@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletSpeed: 15
-  bulletRange: 20
+  bulletRange: 50
   bulletDamage: 10
   isEnemyBullet: 0
 --- !u!58 &7365007431978580210

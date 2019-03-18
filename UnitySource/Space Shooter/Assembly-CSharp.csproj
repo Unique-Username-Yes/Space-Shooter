@@ -74,6 +74,7 @@
     <Compile Include="Assets\Scripts\PlayerProgression.cs" />
     <Compile Include="Assets\Scripts\PlayerShip.cs" />
     <Compile Include="Assets\Scripts\PlayerShooting.cs" />
+    <Compile Include="Assets\Scripts\PlayerStats.cs" />
     <Compile Include="Assets\Scripts\Reward.cs" />
     <Compile Include="Assets\Scripts\UI\UIControl.cs" />
     <Compile Include="Assets\Scripts\Wave.cs" />

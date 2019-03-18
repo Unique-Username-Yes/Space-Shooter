@@ -7,5 +7,6 @@ public struct Reward
 {
     public int bonusHp;
     public BaseWeapon newWeapon;
-    // TODO: add weapon upgrades
+    // TODO: Give player weapon upgrade choice
+    public PlayerStats statsUpgrade;
 }
