@@ -164,7 +164,7 @@ MonoBehaviour:
   maxHealth: 150
   health: 0
   collisionDmg: 15
-  pt: 10
+  pt: 100
 --- !u!58 &5494798426017670794
 CircleCollider2D:
   m_ObjectHideFlags: 0

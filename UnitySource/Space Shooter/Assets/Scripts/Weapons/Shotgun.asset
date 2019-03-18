@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Shotgun
   m_EditorClassIdentifier: 
   bulletP: {fileID: 4665365768116858465, guid: b7ebb4e020b01c74799cb02c2b9328cc, type: 3}
-  fireRate: 10
+  fireRate: 0
   toHit:
     serializedVersion: 2
     m_Bits: 0

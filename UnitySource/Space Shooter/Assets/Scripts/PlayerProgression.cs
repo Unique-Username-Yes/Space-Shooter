@@ -64,6 +64,7 @@ public class PlayerProgression : MonoBehaviour
 
         while (isWaitingForUpgrade)
         {
+            Debug.Log("Waiting");
             if (Input.GetKey(KeyCode.Alpha1) &&
                 (stats.movementSpeed + reward.statsUpgrade.movementSpeed) <= maxStats.movementSpeed)
             {
@@ -88,6 +89,7 @@ public class PlayerProgression : MonoBehaviour
             yield return null;
         }
 
+        Debug.Log("Not waiting");
         SetStats(stats);
 
         WaveSpawner.instance.AllowSpawning(true);
@@ -111,7 +113,7 @@ public class PlayerProgression : MonoBehaviour
         WaveSpawner.instance.ChangeWave(levels[level].wave);
 
         // TODO: Wait for player to pick upgrades
-        StartCoroutine(waitForChoice);
+        StartCoroutine(Choice());
 
         // TODO: Get stats upgrade and add it to current stats
 
