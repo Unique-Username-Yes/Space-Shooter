@@ -104,7 +104,7 @@ public class PlayerProgression : MonoBehaviour
             // Bullet speed
             else if (Input.GetKeyDown(KeyCode.Alpha5))
             {
-                UpgradeStat(Upgrade.FireRate);
+                UpgradeStat(Upgrade.BulletSpeed);
             }
 
             // Fire rate
