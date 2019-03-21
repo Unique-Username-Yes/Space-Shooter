@@ -36,8 +36,11 @@ public class UIControl : MonoBehaviour
         shipStats = transform.Find("ShipStats");
         if (!shipStats)
             Debug.LogError("Ship stats ui not found");
-        shipStats.gameObject.SetActive(false);
+    }
 
+    private void Start()
+    {
+        ShowUpgrades(false);
         level = playerStats.Find("Level").GetComponent<Text>();
     }
 
@@ -56,29 +59,29 @@ public class UIControl : MonoBehaviour
         level.text = newLevel.ToString();
     }
 
-    public void ShowUpgrades(PlayerStats statPercentage, PlayerStats upgrades)
+    public void ShowUpgrades(bool value)
     {
-        isUpgradesActive = true;
-
-        ChangeUpgradePanelValue("HealthUpgrade", statPercentage.maxHealth, upgrades.maxHealth);
-        ChangeUpgradePanelValue("FireRateUpgrade", statPercentage.fireRate, upgrades.fireRate);
-        ChangeUpgradePanelValue("MovementSpeedUpgrade", statPercentage.movementSpeed, upgrades.movementSpeed);
-        shipStats.gameObject.SetActive(true);
-        // TODO: set stats here
+        if (value)
+            UpdateUpgradePanel();
+        shipStats.gameObject.SetActive(value);
+    }
+    public void UpdateUpgradePanel()
+    {
+        Stats pStats = PlayerProgression.instance.playerStats;
+        // Update points
+        shipStats.Find("UpgradePoints").GetComponent<Text>().text = pStats.CurrentUpgradePoints.ToString();
+        // Update sliders
+        float maxUp = pStats.MaxUpgrades;
+        UpdateSlider("FireRateUpgrade", pStats.FireRateUpgrades / maxUp);
+        UpdateSlider("BulletSpeedUpgrade", pStats.BulletSpeedUpgrades / maxUp);
+        UpdateSlider("BulletDamageUpgrade", pStats.BulletDmgUpgrades / maxUp);
+        UpdateSlider("RangeUpgrade", pStats.RangeUpgrades / maxUp);
+        UpdateSlider("MovementSpeedUpgrade", pStats.MovementSpeedUpgrades / maxUp);
+        UpdateSlider("MaxHealthUpgrade", pStats.HealthUpgrades / maxUp);
     }
 
-    private void ChangeUpgradePanelValue(string bar, float maxValue, float upgradeValue)
+    private void UpdateSlider(string sliderName, float value)
     {
-        shipStats.Find(bar).Find("Slider").GetComponent<Slider>().value = maxValue;
-        shipStats.Find(bar).Find("Level").GetComponent<Text>().text = "+"+upgradeValue.ToString();
-    }
-
-    public void CloseUpgradePanel()
-    {
-        if (isUpgradesActive)
-        {
-            // TODO: make panel inactive
-            shipStats.gameObject.SetActive(false);
-        }
+        shipStats.Find(sliderName).Find("Slider").GetComponent<Slider>().value = value;
     }
 }

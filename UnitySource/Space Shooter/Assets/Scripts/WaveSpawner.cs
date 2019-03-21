@@ -11,7 +11,8 @@ public class WaveSpawner : MonoBehaviour
 
     private float timeToSpawn = 0.0f;
 
-    private List<GameObject> enemyShips;
+    [HideInInspector]
+    public List<GameObject> enemyShips;
 
     public bool isAllowedToSpawn = true;
 
@@ -27,7 +28,7 @@ public class WaveSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Time.time >= timeToSpawn && isAllowedToSpawn)
+        if (Time.time >= timeToSpawn && enemyShips.Count < currentWave.enemyShipCount && isAllowedToSpawn) 
         {
             
             SpawnWave();
@@ -56,6 +57,7 @@ public class WaveSpawner : MonoBehaviour
             // TODO: Make them explode?
             Destroy(enemyShip);
         }
+        enemyShips.Clear();
     }
 
     private void SpawnShip(GameObject ship)

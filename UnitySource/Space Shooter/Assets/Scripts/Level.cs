@@ -11,8 +11,5 @@ public class Level
     // Store rewards here
     public Reward reward;
 
-    [HideInInspector]
-    public bool isUnlocked = false;
-
     public bool isBossFight = false;
 }

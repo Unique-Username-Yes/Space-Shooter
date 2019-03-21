@@ -1,21 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class BaseShip : MonoBehaviour
 {
-    public int maxHealth = 50;
-    public int health;
-
-    private void Awake()
-    {
-        health = maxHealth;
-    }
+    protected int health;
 
     public virtual void TakeDamage(int dmg)
     {
         health -= dmg;
-        if (health < 0)
+        if (health <= 0)
         {
             Die();
         }

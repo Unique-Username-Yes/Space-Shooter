@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class StalkerBrain : MonoBehaviour
 {
+    public float progressionMultiplier;
 
-    public float speed = 5.0f;
-    public float stSpeed = 1.0f;
-    public float rSpeed = 10.0f;
-    public float range = 5.0f;
-    public float rangeToFlee = 10.0f;
+    public float speed;
+    public float stSpeed;
+    public float rSpeed;
+    public float range;
+    public float rangeToFlee;
 
     public GameObject bulletP;
-    float timeToFire = 0.0f;
+    float timeToFire;
     Transform firePoint;
-    public float fireRate = 1.0f;
+    public float fireRate;
 
     Rigidbody2D rb;
 
@@ -28,6 +29,7 @@ public class StalkerBrain : MonoBehaviour
         firePoint = transform.Find("FirePoint");
         if (!firePoint)
             Debug.LogError("No Firepoint in staler found");
+
     }
 
     // Update is called once per frame

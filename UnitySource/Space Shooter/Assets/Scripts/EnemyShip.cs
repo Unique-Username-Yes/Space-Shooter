@@ -4,16 +4,25 @@ using UnityEngine;
 
 public class EnemyShip : BaseShip
 {
-    public int collisionDmg = 10;
-    public int pt = 10;
+    public int shipHealth;
+    public int collisionDmg;
+    [Range(0.0f,1.0f)]
+    public float ptCollisionPenalty;
+    public int pt;
+
+    private void Start()
+    {
+        health = shipHealth;
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         PlayerShip pShip = collision.collider.GetComponent<PlayerShip>();
         if (pShip)
         {
+            PlayerProgression.instance.GiveXP((int)(pt*ptCollisionPenalty));
             pShip.TakeDamage(collisionDmg);
-            // Remove ship after collision
+            WaveSpawner.instance.enemyShips.Remove(gameObject);
             base.Die();
         }
     }
@@ -23,6 +32,7 @@ public class EnemyShip : BaseShip
         // Reward player for killing this unit
         // TODO: implement
         PlayerProgression.instance.GiveXP(pt);
+        WaveSpawner.instance.enemyShips.Remove(gameObject);
         base.Die();
     }
 }

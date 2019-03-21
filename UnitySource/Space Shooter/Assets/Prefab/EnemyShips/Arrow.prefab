@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c1200ff8001b9f4faa8bf6cb4b21cc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
+  speed: 3
   rSpeed: 250
 --- !u!212 &5729420035759975845
 SpriteRenderer:
@@ -161,9 +161,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8984ea4c950e27544a991f4cd0f60e3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 150
-  health: 0
-  collisionDmg: 15
+  shipHealth: 100
+  collisionDmg: 10
+  ptCollisionPenalty: 0.5
   pt: 100
 --- !u!58 &5494798426017670794
 CircleCollider2D:

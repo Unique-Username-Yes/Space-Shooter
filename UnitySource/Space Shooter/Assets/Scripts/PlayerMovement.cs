@@ -2,22 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class PlayerMovement : MonoBehaviour
 {
     public static Vector2 pos;
 
-    public float speed = 5f;
-    public float smoothT = .1f;
-    public Rigidbody2D player;
+    //[HideInInspector]
+    public float speed;
+    private float smoothT = .15f;
 
-    Vector2 dir = Vector2.zero;
-    Vector2 vel = Vector2.zero;
-    Vector2 mousePos = Vector2.zero;
+    private Rigidbody2D player;
+    private Vector2 dir;
+    private Vector2 vel;
+    private Vector2 mousePos;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-
+        player = GetComponent<Rigidbody2D>();
+        if (!player)
+            Debug.LogError("No player rigid body found in player movement");
     }
 
     private void Update()
@@ -31,15 +34,11 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         // Movement
-        Vector2 dirVelocity = dir * speed;
-        player.velocity = Vector2.SmoothDamp(player.velocity, dirVelocity, ref vel, smoothT);
+        player.AddForce(dir.normalized * speed);
         pos = player.position;
 
         // Rotation
         Vector2 rDir = mousePos - player.position;
-        //float angle = Mathf.Atan2(rDir.y, rDir.x) * Mathf.Rad2Deg - 90f;
-        //player.rotation = angle;
-
         player.transform.up = rDir;
     }
 }

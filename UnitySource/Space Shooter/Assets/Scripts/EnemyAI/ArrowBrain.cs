@@ -6,8 +6,8 @@ public class ArrowBrain : MonoBehaviour
 {
     private Vector2 target = Vector2.zero;
 
-    public float speed = 10f;
-    public float rSpeed = 10f;
+    public float speed;
+    public float rSpeed;
 
     Rigidbody2D rb;
 

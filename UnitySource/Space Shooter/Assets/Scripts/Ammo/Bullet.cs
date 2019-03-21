@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float bulletSpeed = 10.0f;
-    public float bulletRange = 10.0f;
-    public int bulletDamage = 10;
+    public float bulletSpeed;
+    public float bulletRange;
+    public int bulletDamage;
     public bool isEnemyBullet = false;
 
     private float distTraveled = 0.0f;
@@ -45,7 +45,7 @@ public class Bullet : MonoBehaviour
         if (distTraveled >= bulletRange * bulletRange)
         {
             // Bullet range reached
-            Destroy(gameObject);
+            Remove(gameObject);
         }
     }
 
@@ -76,6 +76,7 @@ public class Bullet : MonoBehaviour
 
     private void Remove(GameObject obj)
     {
-        Destroy(obj);
+        // Destroy shell
+        Destroy(obj.transform.parent.gameObject);
     }
 }

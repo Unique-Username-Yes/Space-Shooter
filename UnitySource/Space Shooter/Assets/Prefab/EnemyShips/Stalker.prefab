@@ -147,12 +147,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc69d962a6e7c0a4bb9382a0e8c01610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  progressionMultiplier: 0
   speed: 350
   stSpeed: 50
   rSpeed: 250
   range: 15
   rangeToFlee: 10
-  bulletP: {fileID: 6385814772174004250, guid: 4a0ae888ba7c618478061d59f7099c90, type: 3}
+  bulletP: {fileID: 2237132008853046276, guid: f751f5587841ebf44892d0297f2375bb, type: 3}
   fireRate: 1
 --- !u!114 &477462420
 MonoBehaviour:
@@ -166,10 +167,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8984ea4c950e27544a991f4cd0f60e3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 50
-  health: 0
+  shipHealth: 75
   collisionDmg: 5
-  pt: 15
+  ptCollisionPenalty: 0
+  pt: 23
 --- !u!58 &4540113172333803182
 CircleCollider2D:
   m_ObjectHideFlags: 0

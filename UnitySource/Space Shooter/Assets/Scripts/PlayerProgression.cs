@@ -1,11 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+using System;
+
+public enum Upgrade
+{
+    FireRate=0,
+    BulletDmg=1,
+    BulletSpeed=2,
+    Range=3,
+    MovementSpeed=4,
+    MaxHealth=5,
+
+}
 
 public class PlayerProgression : MonoBehaviour
 {
     public static PlayerProgression instance;
 
+    public Stats playerStats;
     int experiencePoints = 0;
     int level = 0;
     PlayerShip pShip;
@@ -16,10 +30,7 @@ public class PlayerProgression : MonoBehaviour
     public bool isLevelingUp = false;
     private bool isWaitingForUpgrade = false;
 
-    public PlayerStats stats;
-    public PlayerStats maxStats;
-
-    private IEnumerator waitForChoice;
+    private IEnumerator choice;
 
     void Awake()
     {
@@ -40,10 +51,13 @@ public class PlayerProgression : MonoBehaviour
 
     private void Start()
     {
+        // Update stats to default values
+        foreach(Upgrade upg in Enum.GetValues(typeof(Upgrade))) { UpdateStat(upg); }
+
+        choice = ChooseUpgrade();
+
         WaveSpawner.instance.ChangeWave(levels[level].wave);
         UIControl.instance.UpdateLevel(level);
-        waitForChoice = Choice();
-        SetStats(stats);
     }
 
     public void GiveXP(int xp)
@@ -51,93 +65,166 @@ public class PlayerProgression : MonoBehaviour
         experiencePoints += xp;
         if(experiencePoints>= levels[level+1].xpRequirement)
         {
-            LevelUp();
+            RewardPlayer();
         }
         UIControl.instance.UpdateXP((float)experiencePoints / levels[level+1].xpRequirement);
     }
 
-    private IEnumerator Choice()
+    private IEnumerator ChooseUpgrade()
     {
-        isWaitingForUpgrade = true;
-        Reward reward = levels[level].reward;
+        Debug.Log("Got here");
+        UIControl.instance.ShowUpgrades(true);
 
-
-        while (isWaitingForUpgrade)
+        while (playerStats.CurrentUpgradePoints > 0)
         {
-            Debug.Log("Waiting");
-            if (Input.GetKey(KeyCode.Alpha1) &&
-                (stats.movementSpeed + reward.statsUpgrade.movementSpeed) <= maxStats.movementSpeed)
+            // Health
+            if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                // Movement speed
-                stats.movementSpeed += reward.statsUpgrade.movementSpeed;
-                isWaitingForUpgrade = false;
+                UpgradeStat(Upgrade.MaxHealth);
             }
-            else if (Input.GetKey(KeyCode.Alpha2) &&
-                (stats.fireRate + reward.statsUpgrade.fireRate) <= maxStats.fireRate)
+
+            // Movement Speed
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                // Fire rate
-                stats.fireRate += reward.statsUpgrade.fireRate;
-                isWaitingForUpgrade = false;
+                UpgradeStat(Upgrade.MovementSpeed);
             }
-            else if (Input.GetKey(KeyCode.Alpha3) &&
-                (stats.maxHealth + reward.statsUpgrade.maxHealth) <= maxStats.maxHealth)
+
+            // Range
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                // Health
-                stats.maxHealth += reward.statsUpgrade.maxHealth;
-                isWaitingForUpgrade = false;
+                UpgradeStat(Upgrade.Range);
+            }
+
+            // Bullet dmg
+            else if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                UpgradeStat(Upgrade.BulletDmg);
+            }
+
+            // Bullet speed
+            else if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                UpgradeStat(Upgrade.FireRate);
+            }
+
+            // Fire rate
+            else if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                UpgradeStat(Upgrade.FireRate);
             }
             yield return null;
         }
 
-        Debug.Log("Not waiting");
-        SetStats(stats);
-
+        UIControl.instance.ShowUpgrades(false);
         WaveSpawner.instance.AllowSpawning(true);
-        UIControl.instance.CloseUpgradePanel();
     }
 
-    private void LevelUp()
+    private void UpgradeStat(Upgrade upgrade)
     {
-        Debug.Log("Leveld up!");
-        Reward reward = levels[level].reward;
-
-        // TODO: Show potential weapon upgrades
-        PlayerStats percentStats = stats;
-        percentStats.fireRate /= maxStats.fireRate;
-        percentStats.maxHealth /= maxStats.maxHealth;
-        percentStats.movementSpeed /= maxStats.movementSpeed;
-
-        UIControl.instance.ShowUpgrades(percentStats, reward.statsUpgrade);
-
-        WaveSpawner.instance.AllowSpawning(false);
-        WaveSpawner.instance.ChangeWave(levels[level].wave);
-
-        // TODO: Wait for player to pick upgrades
-        StartCoroutine(Choice());
-
-        // TODO: Get stats upgrade and add it to current stats
-
-        pShip.health = pShip.maxHealth;
-        experiencePoints = 0;
-
-        if (reward.newWeapon)
+        switch (upgrade)
         {
-            pShooting.weapon = reward.newWeapon;
+            case Upgrade.FireRate:
+                {
+                    playerStats.GiveFireRateUpgrade();
+                    pShooting.fireRate = playerStats.FireRate;
+                    playerStats.CurrentUpgradePoints--;
+                    break;
+                }
+            case Upgrade.BulletDmg:
+                {
+                    playerStats.GiveBulletDmgUpgrade();
+                    pShooting.weapon.bulletDmg = (int)playerStats.BulletDmg;
+                    playerStats.CurrentUpgradePoints--;
+                    break;
+                }
+            case Upgrade.BulletSpeed:
+                {
+                    playerStats.GiveBulletSpeedUpgrade();
+                    pShooting.weapon.bulletSpeed = playerStats.baseBulletSpeed;
+                    playerStats.CurrentUpgradePoints--;
+                    break;
+                }
+            case Upgrade.Range:
+                {
+                    playerStats.GiveRangeUpgrade();
+                    pShooting.weapon.range = playerStats.Range;
+                    playerStats.CurrentUpgradePoints--;
+                    break;
+                }
+            case Upgrade.MaxHealth:
+                {
+                    // TODO: Give one upgrade
+                    playerStats.GiveHealthUpgrade();
+                    // TODO: Update stats
+                    pShip.SetMaxHealth = (int)playerStats.MaxHealth;
+                    // TODO: subtract one point from total point count
+                    playerStats.CurrentUpgradePoints--;
+                    break;
+                }
+            case Upgrade.MovementSpeed:
+                {
+                    playerStats.GiveMovementSpeedUpgrade();
+                    pMovement.speed = playerStats.MovementSpeed;
+                    playerStats.CurrentUpgradePoints--;
+                    break;
+                }
         }
+        // TODO: Update upgrade on gui
+        UIControl.instance.UpdateUpgradePanel();
+    }
 
+    private void UpdateStat(Upgrade upgrade)
+    {
+        switch (upgrade)
+        {
+            case Upgrade.FireRate:
+                {
+                    pShooting.fireRate = playerStats.FireRate;
+                    break;
+                }
+            case Upgrade.BulletDmg:
+                {
+                    pShooting.weapon.bulletDmg = (int)playerStats.BulletDmg;
+                    break;
+                }
+            case Upgrade.BulletSpeed:
+                {
+                    pShooting.weapon.bulletSpeed = playerStats.baseBulletSpeed;
+                    break;
+                }
+            case Upgrade.Range:
+                {
+                    pShooting.weapon.range = playerStats.Range;
+                    break;
+                }
+            case Upgrade.MaxHealth:
+                {
+                    pShip.SetMaxHealth = (int)playerStats.MaxHealth;
+                    break;
+                }
+            case Upgrade.MovementSpeed:
+                {
+                    pMovement.speed = playerStats.MovementSpeed;
+                    break;
+                }
+        }
+    }
+
+    private void RewardPlayer()
+    {
+        WaveSpawner.instance.AllowSpawning(false);
+
+        WaveSpawner.instance.ChangeWave(levels[level + 1].wave);
+
+        playerStats.CurrentUpgradePoints += levels[level].reward.upgradePoints;
+
+        StartCoroutine(ChooseUpgrade());
+        Debug.Log("But did get here tho");
+
+        pShip.SetMaxHealth = (int)playerStats.MaxHealth;
+        experiencePoints = 0;
         level++;
-
         UIControl.instance.UpdateLevel(level);
         UIControl.instance.UpdateXP((float)experiencePoints / levels[level + 1].xpRequirement);
-        UIControl.instance.UpdateHealth((float)pShip.health / pShip.maxHealth);
-
-        Debug.Log(isWaitingForUpgrade);
-    }
-
-    private void SetStats(PlayerStats statsToSet)
-    {
-        pShip.maxHealth = stats.maxHealth;
-        pMovement.speed = stats.movementSpeed;
-        pShooting.weapon.fireRate = stats.fireRate;
     }
 }

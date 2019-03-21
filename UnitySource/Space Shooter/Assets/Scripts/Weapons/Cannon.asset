@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3deefd0617ea40d4386cf71cfbb78c5c, type: 3}
   m_Name: Cannon
   m_EditorClassIdentifier: 
-  bulletP: {fileID: 6125102940565645095, guid: 3471232ab9bb4114dbf257ec51188fab, type: 3}
-  fireRate: 0
-  toHit:
-    serializedVersion: 2
-    m_Bits: 0
+  bulletP: {fileID: 107116502603177093, guid: 76b1f44e5e7d47e4dae9d7c3ec1b0a79, type: 3}
+  recoil: 0
+  range: 20
+  bulletDmg: 15
+  bulletSpeed: 15

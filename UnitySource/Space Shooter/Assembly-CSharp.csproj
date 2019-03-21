@@ -63,7 +63,6 @@
     <Compile Include="Assets\Scripts\Ammo\Bullet.cs" />
     <Compile Include="Assets\Scripts\BaseShip.cs" />
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
-    <Compile Include="Assets\Scripts\DestroyShell.cs" />
     <Compile Include="Assets\Scripts\EnemyAI\ArrowBrain.cs" />
     <Compile Include="Assets\Scripts\EnemyAI\StalkerBrain.cs" />
     <Compile Include="Assets\Scripts\EnemyShip.cs" />
@@ -74,8 +73,8 @@
     <Compile Include="Assets\Scripts\PlayerProgression.cs" />
     <Compile Include="Assets\Scripts\PlayerShip.cs" />
     <Compile Include="Assets\Scripts\PlayerShooting.cs" />
-    <Compile Include="Assets\Scripts\PlayerStats.cs" />
     <Compile Include="Assets\Scripts\Reward.cs" />
+    <Compile Include="Assets\Scripts\Stats.cs" />
     <Compile Include="Assets\Scripts\UI\UIControl.cs" />
     <Compile Include="Assets\Scripts\Wave.cs" />
     <Compile Include="Assets\Scripts\WaveSpawner.cs" />
