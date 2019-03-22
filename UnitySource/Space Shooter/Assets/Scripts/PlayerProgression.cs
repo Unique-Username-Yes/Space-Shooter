@@ -21,7 +21,7 @@ public class PlayerProgression : MonoBehaviour
 
     public Stats playerStats;
     int experiencePoints = 0;
-    int level = 0;
+    public int level = 0;
     PlayerShip pShip;
     PlayerMovement pMovement;
     PlayerShooting pShooting;
@@ -60,19 +60,54 @@ public class PlayerProgression : MonoBehaviour
         UIControl.instance.UpdateLevel(level);
     }
 
+    public void NextLvl()
+    {
+        // TODO: Refactor point
+        StopAllCoroutines();
+        int xpForNext = levels[level].xpRequirement - experiencePoints;
+        GiveXP(xpForNext);
+    }
+
+    public void GiveUpgradePoints()
+    {
+        // TODO: Refactor point
+        playerStats.CurrentUpgradePoints += 5;
+        UIControl.instance.UpdateUpgradePanel();
+    }
+
+    public void ExpForBoss()
+    {
+        // Refactor point
+        if (levels[level].wave.isBossWave)
+        {
+            // Progress to the next lvl
+            int xpForNext = levels[level].xpRequirement - experiencePoints;
+            GiveXP(xpForNext);
+        }
+    }
+
     public void GiveXP(int xp)
     {
         experiencePoints += xp;
-        if(experiencePoints>= levels[level+1].xpRequirement)
+        Debug.Log(level + 1);
+        if(experiencePoints>= levels[level].xpRequirement)
         {
-            RewardPlayer();
+            Debug.Log("Level: " + (level + 1) + " Count: " + levels.Count());
+            if ((level + 1) >= levels.Count())
+            {
+                // End of game
+                GameControls.instance.EndScreen();
+            }
+            else
+            {
+                RewardPlayer();
+            }
         }
-        UIControl.instance.UpdateXP((float)experiencePoints / levels[level+1].xpRequirement);
+        UIControl.instance.UpdateXP((float)experiencePoints / levels[level].xpRequirement);
     }
 
     private IEnumerator ChooseUpgrade()
     {
-        Debug.Log("Got here");
         UIControl.instance.ShowUpgrades(true);
 
         while (playerStats.CurrentUpgradePoints > 0)
@@ -219,12 +254,11 @@ public class PlayerProgression : MonoBehaviour
         playerStats.CurrentUpgradePoints += levels[level].reward.upgradePoints;
 
         StartCoroutine(ChooseUpgrade());
-        Debug.Log("But did get here tho");
 
         pShip.SetMaxHealth = (int)playerStats.MaxHealth;
         experiencePoints = 0;
         level++;
         UIControl.instance.UpdateLevel(level);
-        UIControl.instance.UpdateXP((float)experiencePoints / levels[level + 1].xpRequirement);
+        UIControl.instance.UpdateXP((float)experiencePoints / levels[level].xpRequirement);
     }
 }

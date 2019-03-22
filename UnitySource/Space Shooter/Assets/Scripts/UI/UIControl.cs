@@ -10,6 +10,7 @@ public class UIControl : MonoBehaviour
 
     private Transform playerStats;
     private Transform shipStats;
+    private Transform bossStats;
 
     private Slider levelSlider;
     private Slider healthSlider;
@@ -36,12 +37,29 @@ public class UIControl : MonoBehaviour
         shipStats = transform.Find("ShipStats");
         if (!shipStats)
             Debug.LogError("Ship stats ui not found");
+
+        bossStats = transform.Find("BossStats");
+        if (!bossStats)
+            Debug.LogError("Boss stats ui not found");
+
+        ShowUpgrades(false);
+        ShowBossStats(false);
     }
 
     private void Start()
     {
-        ShowUpgrades(false);
-        level = playerStats.Find("Level").GetComponent<Text>();
+
+    }
+
+    public void ShowBossStats(bool value)
+    {
+        bossStats.gameObject.SetActive(value);
+    }
+
+    public void UpdateBossStats(float bossHealth, string bossName)
+    {
+        bossStats.Find("HealthSlider").GetComponent<Slider>().value = bossHealth;
+        bossStats.Find("Name").GetComponent<Text>().text = bossName;
     }
 
     public void UpdateXP(float newXp)
@@ -56,7 +74,7 @@ public class UIControl : MonoBehaviour
 
     public void UpdateLevel(int newLevel)
     {
-        level.text = newLevel.ToString();
+        playerStats.Find("Level").GetComponent<Text>().text = newLevel.ToString();
     }
 
     public void ShowUpgrades(bool value)
