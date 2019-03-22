@@ -7,12 +7,20 @@ public class GameControls : MonoBehaviour
 {
     public static GameControls instance;
 
+    public Scene thisScene;
     public bool isPlayerDead = false;
 
-    private void Start()
+    public static int mainSceneIndex = 1;
+    public static int endSceneIndex = 2;
+
+    private void Awake()
     {
         if (!instance)
             instance = this;
+
+        DontDestroyOnLoad(gameObject);
+
+        ResetGame();
     }
     // Update is called once per frame
     void Update()
@@ -21,15 +29,32 @@ public class GameControls : MonoBehaviour
 
         // TODO: Display pause screen
 
-        if (Input.GetKeyDown(KeyCode.R) && isPlayerDead)
+        if (Input.GetKeyDown(KeyCode.R))
             ResetGame();
         if (Input.GetKeyDown(KeyCode.Escape))
             TerminateGame();
+
+        if (Input.GetKeyDown(KeyCode.Comma))
+        {
+            PlayerProgression.instance.NextLvl();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Period))
+        {
+            Debug.Log("Pressed");
+            PlayerProgression.instance.GiveUpgradePoints();
+        }
     }
 
-    private void ResetGame()
+    public void EndScreen()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(endSceneIndex);
+    }
+
+    public void ResetGame()
+    {
+        Debug.Log("Reset");
+        SceneManager.LoadScene(mainSceneIndex);
     }
 
     private void TerminateGame()

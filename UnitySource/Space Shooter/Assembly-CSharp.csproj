@@ -62,8 +62,11 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Ammo\Bullet.cs" />
     <Compile Include="Assets\Scripts\BaseShip.cs" />
+    <Compile Include="Assets\Scripts\BossShip.cs" />
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
+    <Compile Include="Assets\Scripts\DevInitializer.cs" />
     <Compile Include="Assets\Scripts\EnemyAI\ArrowBrain.cs" />
+    <Compile Include="Assets\Scripts\EnemyAI\RammerBrain.cs" />
     <Compile Include="Assets\Scripts\EnemyAI\StalkerBrain.cs" />
     <Compile Include="Assets\Scripts\EnemyShip.cs" />
     <Compile Include="Assets\Scripts\EnemyShipType.cs" />
