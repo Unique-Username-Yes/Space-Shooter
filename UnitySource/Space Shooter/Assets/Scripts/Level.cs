@@ -10,6 +10,4 @@ public class Level
 
     // Store rewards here
     public Reward reward;
-
-    public bool isBossFight = false;
 }

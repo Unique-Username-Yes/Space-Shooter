@@ -30,21 +30,41 @@ public class WaveSpawner : MonoBehaviour
     {
         if (Time.time >= timeToSpawn && enemyShips.Count < currentWave.enemyShipCount && isAllowedToSpawn) 
         {
-            
             SpawnWave();
             timeToSpawn = Time.time + currentWave.waveCooldown;
         }
     }
 
+    public void BossDefeated()
+    {
+        if (currentWave.isBossWave)
+        {
+            RemoveAllEnemyShips();
+            // TODO: End screen
+        }
+        else
+        {
+            Debug.LogError("Cannot defeat a ghost");
+        }
+    }
+
     private void SpawnWave()
     {
-        for(int i=0; i<currentWave.enemyShipCount; ++i)
+        if (currentWave.isBossWave)
         {
-            foreach (var enemyShip in currentWave.enemyShips)
+            SpawnShip(currentWave.enemyShips[0].enemyShipP);
+            AllowSpawning(false);
+        }
+        else
+        {
+            for (int i = 0; i < currentWave.enemyShipCount; ++i)
             {
-                if (Random.value <= enemyShip.rarity)
+                foreach (var enemyShip in currentWave.enemyShips)
                 {
-                    SpawnShip(enemyShip.enemyShipP);
+                    if (Random.value <= enemyShip.rarity)
+                    {
+                        SpawnShip(enemyShip.enemyShipP);
+                    }
                 }
             }
         }

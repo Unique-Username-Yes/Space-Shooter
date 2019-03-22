@@ -70,6 +70,15 @@ public class Bullet : MonoBehaviour
             {
                 eShip.TakeDamage(bulletDamage);
                 Remove(gameObject);
+                return;
+            }
+            // TODO: Refactoring point
+            BossShip bShip = collision.GetComponent<BossShip>();
+            if (bShip)
+            {
+                bShip.TakeDamage(bulletDamage);
+                Remove(gameObject);
+                return;
             }
         }
     }
