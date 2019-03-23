@@ -2,86 +2,64 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StalkerBrain : MonoBehaviour
+public class StalkerBrain : BaseBrain
 {
-    public float progressionMultiplier;
+    public float rangeToFlee = 5.0f;
+    public float strageMult = .5f;
 
-    public float speed;
-    public float stSpeed;
-    public float rSpeed;
-    public float range;
-    public float rangeToFlee;
+    private float rVelocity;
+    private Vector2 mVelocity;
 
-    public GameObject bulletP;
-    float timeToFire;
-    Transform firePoint;
-    public float fireRate;
-
-    Rigidbody2D rb;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        if (!rb)
-            Debug.LogError("No StalkerBrain body found");
-
-        firePoint = transform.Find("FirePoint");
-        if (!firePoint)
-            Debug.LogError("No Firepoint in staler found");
-
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
+    private void Update()
     {
         Vector2 dir = PlayerMovement.pos - rb.position;
-        dir.Normalize();
-
         float rAmount = Vector3.Cross(dir, transform.up).z;
+        rVelocity = -rAmount * stats.RotationSpeed;
 
-        // Rotation
-        rb.angularVelocity = -rAmount * rSpeed;
-
-
-        float dist = Vector2.Distance(PlayerMovement.pos, rb.position);
-
-        Vector2 force;
-        if (dist < rangeToFlee)
+        if (IsRanged)
         {
-            // Flee
-            force = (transform.up * -1.0f) * speed;
-        }
-        else if (dist < range)
-        {
-            // Strafe
-            force = (transform.right+ (transform.up * 0.01f)) * stSpeed;
+            float dist = Vector2.Distance(PlayerMovement.pos, rb.position);
 
+            if (dist < rangeToFlee)
+            {
+                // Flee
+                mVelocity = (transform.up * -1.0f) * stats.MovementSpeed;
+            }
+            else if (dist < stats.Range)
+            {
+                // Strafe
+                mVelocity = (transform.right + (transform.up * 0.01f)) * stats.MovementSpeed * strageMult;
+
+                // Shoot only when in range
+                Shoot();
+            }
+            else
+            {
+                // Move to target
+                mVelocity = transform.up * stats.MovementSpeed;
+            }
         }
         else
         {
-            // Move to target
-            force = transform.up  * speed;
+            mVelocity = transform.up * stats.MovementSpeed;
         }
-
-        rb.AddForce(force, ForceMode2D.Force);
-
-        rb.velocity = Vector2.zero;
-        //rb.MovePosition(force);
-
-        //force -= rb.position;
-
-        Shoot();
     }
-    
 
-    private void Shoot()
+    void FixedUpdate()
     {
-        if (Time.time > timeToFire)
-        {
-            timeToFire = Time.time + 1 / fireRate;
+        rb.AddTorque(rVelocity);
+        rb.AddForce(mVelocity);
+    }
 
-            GameObject bullet = Instantiate(bulletP, firePoint.position, firePoint.rotation);
+    public override int CalcDmg(bool isBodyDamage)
+    {
+        if (isBodyDamage)
+        {
+            return (int)stats.BodyDmg;
+        }
+        else
+        {
+            return (int)stats.BulletDmg;
         }
     }
 }

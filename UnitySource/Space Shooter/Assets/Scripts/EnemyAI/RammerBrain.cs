@@ -2,12 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RammerBrain : MonoBehaviour
+public class RammerBrain : BaseBrain
 {
-    public float rotationSpeed;
-    public float movementSpeed;
+    public float midAdditionalDist;
+    public float maxAdditionalDist;
+    
 
-    private Rigidbody2D rb;
+    public float timeToRotate;
+    public float timeToRotateMin = 1.0f;
+    public float timeToRotateMax = 3.0f;
+
+    private Vector2 lastPos;
+    private float currentDistTraveled = 0;
+    private float distToTravel;
+
+    private float rVelocity;
+    private Vector2 mVelocity;
 
     private enum State
     {
@@ -17,44 +27,14 @@ public class RammerBrain : MonoBehaviour
     }
 
     private State currentState = State.Idle;
-    private Vector2 dir;
 
-    public float timeToRotate;
-    public float timeToRotateMin = 1.0f;
-    public float timeToRotateMax = 3.0f;
-
-    public float currentDistTraveled = 0;
-    public float distToTravel;
-    public float midAdditionalDist;
-    public float maxAdditionalDist;
-    public Vector2 lastPos;
-
-    private float rAmount;
-
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        if (!rb)
-            Debug.LogError("Found no rigid body in Boss1");
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    private void FixedUpdate()
-    {
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        dir = (PlayerMovement.pos - rb.position);
         switch (currentState)
         {
             case State.Idle:
                 {
-                    rb.velocity = Vector2.zero;
+                    mVelocity = Vector2.zero;
                     currentState = State.Rotating;
                     timeToRotate = Random.Range(timeToRotateMin, timeToRotateMax);
                     break;
@@ -63,7 +43,7 @@ public class RammerBrain : MonoBehaviour
                 {
                     currentDistTraveled += Vector2.Distance(rb.position, lastPos);
                     lastPos = rb.position;
-                    rb.velocity = transform.up * movementSpeed;
+                    mVelocity = transform.up * stats.MovementSpeed;
 
                     if((distToTravel+Random.Range(midAdditionalDist,maxAdditionalDist))<= currentDistTraveled)
                     {
@@ -74,8 +54,9 @@ public class RammerBrain : MonoBehaviour
                 }
             case State.Rotating:
                 {
-                    rb.angularVelocity = -rAmount * rotationSpeed;
-                    rAmount = Vector3.Cross(dir, transform.up).z;
+                    Vector2 dir = (PlayerMovement.pos - rb.position);
+                    float rAmount = Vector3.Cross(dir, transform.up).z;
+                    rVelocity = -rAmount * stats.RotationSpeed;
                     timeToRotate -= Time.deltaTime;
                     break;
                 }
@@ -83,7 +64,7 @@ public class RammerBrain : MonoBehaviour
         
         if (currentState == State.Rotating && timeToRotate < 0)
         {
-            rb.angularVelocity = 0.0f;
+            rVelocity = 0.0f;
             currentState = State.Moving;
             currentDistTraveled = 0;
             distToTravel = Vector2.Distance(rb.position, PlayerMovement.pos);
@@ -91,5 +72,14 @@ public class RammerBrain : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        rb.AddTorque(rVelocity);
+        rb.AddForce(mVelocity);
+    }
 
+    public override int CalcDmg(bool isBodyDamage)
+    {
+        throw new System.NotImplementedException();
+    }
 }

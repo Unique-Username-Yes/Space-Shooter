@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3652882149979326822
+--- !u!1 &5508043977414932214
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,12 +8,12 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3652882149979326818}
-  - component: {fileID: 3652882149979326819}
-  - component: {fileID: 3652882149979326816}
-  - component: {fileID: 3652882149979326821}
-  - component: {fileID: 3652882149979326817}
-  - component: {fileID: 3652882149979326820}
+  - component: {fileID: 5508043977414932208}
+  - component: {fileID: 5508043977414932211}
+  - component: {fileID: 5508043977414932210}
+  - component: {fileID: 5508043977414932213}
+  - component: {fileID: 5508043977414932212}
+  - component: {fileID: 5508043977414932215}
   m_Layer: 0
   m_Name: Rammer
   m_TagString: Untagged
@@ -21,27 +21,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3652882149979326818
+--- !u!4 &5508043977414932208
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3652882149979326822}
+  m_GameObject: {fileID: 5508043977414932214}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19.13, y: 4.5628424, z: 0}
+  m_LocalPosition: {x: -21.41591, y: 6.178521, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 5508043977630505579}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &3652882149979326819
+--- !u!212 &5508043977414932211
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3652882149979326822}
+  m_GameObject: {fileID: 5508043977414932214}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -83,13 +84,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3652882149979326816
+--- !u!114 &5508043977414932210
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3652882149979326822}
+  m_GameObject: {fileID: 5508043977414932214}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eebdbb9a26238c84391036ae3db76ac4, type: 3}
@@ -100,56 +101,61 @@ MonoBehaviour:
   shipHealth: 500
   collisionDmg: 27
   pt: 0
---- !u!114 &3652882149979326821
+--- !u!114 &5508043977414932213
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3652882149979326822}
+  m_GameObject: {fileID: 5508043977414932214}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cbe736c08713b2c4fb22660557489ec1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 10
-  movementSpeed: 10
-  timeToRotate: 0
-  timeToRotateMin: 1
-  timeToRotateMax: 5
-  currentDistTraveled: 0
-  distToTravel: 0
+  stats:
+    baseRange: 20
+    baseMaxHeal: 100
+    baseFireRate: 1
+    baseBulletDmg: 15
+    baseBulletSpeed: 15
+    baseMovementSpeed: 70
+    baseBodyDmg: 15
+    baseRotationSpeed: 1
+  weapon: {fileID: 0}
   midAdditionalDist: 5
-  maxAdditionalDist: 25
-  lastPos: {x: 0, y: 0}
---- !u!50 &3652882149979326817
+  maxAdditionalDist: 10
+  timeToRotate: 0
+  timeToRotateMin: 3
+  timeToRotateMax: 7
+--- !u!50 &5508043977414932212
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3652882149979326822}
+  m_GameObject: {fileID: 5508043977414932214}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0
+  m_LinearDrag: 5
+  m_AngularDrag: 10
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!60 &3652882149979326820
+--- !u!60 &5508043977414932215
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3652882149979326822}
+  m_GameObject: {fileID: 5508043977414932214}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -174,3 +180,33 @@ PolygonCollider2D:
       - {x: 1.6595345, y: -2.4884155}
       - {x: 0.22258186, y: 2.3558998}
       - {x: -1.2039833, y: -2.4929779}
+--- !u!1 &5508043977630505578
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5508043977630505579}
+  m_Layer: 0
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5508043977630505579
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5508043977630505578}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.23, y: 2.5, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5508043977414932208}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -12,6 +12,8 @@ public class BaseWeapon : ScriptableObject
     public float bulletDmg;
     public float bulletSpeed;
 
+    
+
     public void Pewpew(Transform firePoint)
     {
         GameObject bullet = Instantiate(bulletP, firePoint.position, firePoint.rotation);

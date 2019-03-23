@@ -18,12 +18,12 @@ public class Stats
     public int BulletSpeedUpgrades { get; private set; } = 0;
     public int MovementSpeedUpgrades { get; private set; } = 0;
 
-    private float rangeMult = 4.0f;
-    private float healthMult = 20.0f;
-    private float fireRateMult = 1.0f;
-    private float bulletDmgMult = 2.0f;
-    private float bulletSpeedMult = 1.0f;
-    private float movementSpeedMult = 1.0f;
+    protected float rangeMult = 4.0f;
+    protected float healthMult = 20.0f;
+    protected float fireRateMult = 1.0f;
+    protected float bulletDmgMult = 2.0f;
+    protected float bulletSpeedMult = 1.0f;
+    protected float movementSpeedMult = 1.0f;
 
     public float Range { get => baseRange + (RangeUpgrades * rangeMult); }
     public float MaxHealth { get => baseMaxHeal + (HealthUpgrades * healthMult); }
@@ -38,23 +38,4 @@ public class Stats
     public void GiveBulletDmgUpgrade() { BulletDmgUpgrades += BulletDmgUpgrades < MaxUpgrades ? 1 : 0; }
     public void GiveBulletSpeedUpgrade() { BulletSpeedUpgrades += BulletSpeedUpgrades < MaxUpgrades ? 1 : 0; }
     public void GiveMovementSpeedUpgrade() { MovementSpeedUpgrades += MovementSpeedUpgrades < MaxUpgrades ? 1 : 0; }
-
-    /*
-     * - Current level
-     * - Current health
-     * - Current xp
-     * - Current weapon
-     * 
-     * ! Have methods to update stats
-     * 
-     * - Max upgrade
-     * - Upgrade multipliers
-     * - Range Upgrade = Bullet.cs
-     * - Health Upgrade = BaseShip.cs
-     * - Bullet Dmg upgrade = Bullet.cs
-     * - Bullet Speed upgrade = Bullet.cs
-     * - Movement Speed upgrade = PlayerMovement.cs
-     * ? Helth regen upgrade = ?
-     * - Fire rate = BaseWeapon.cs
-     */
 }

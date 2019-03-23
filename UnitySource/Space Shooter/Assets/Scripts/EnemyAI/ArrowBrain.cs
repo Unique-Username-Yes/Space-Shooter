@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ArrowBrain : MonoBehaviour
 {
-    private Vector2 target = Vector2.zero;
 
     public float speed;
     public float rSpeed;
@@ -25,14 +24,6 @@ public class ArrowBrain : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Vector2 dir = PlayerMovement.pos - rb.position;
-        dir.Normalize();
 
-        float rAmount = Vector3.Cross(dir, transform.up).z;
-
-        // Rotation
-        rb.angularVelocity = -rAmount * rSpeed;
-
-        rb.velocity = transform.up * speed;
     }
 }
