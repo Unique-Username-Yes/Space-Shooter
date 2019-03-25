@@ -4,37 +4,18 @@ using UnityEngine;
 
 public class PlayerShip : BaseShip
 {
-    private int shipMaxHealth;
-
-    public int SetMaxHealth
-    {
-        set
-        {
-            shipMaxHealth = value;
-            health = shipMaxHealth;
-            UIControl.instance.UpdateHealth((float)health / shipMaxHealth);
-        }
-    }
-
-    protected void Awake()
-    {
-        health = shipMaxHealth;
-    }
-
     public override void TakeDamage(int dmg)
     {
-        if (!PlayerProgression.instance.isLevelingUp)
+        if (!PlayerProgression.instance.isLeveling)
         {
             base.TakeDamage(dmg);
-            UIControl.instance.UpdateHealth((float)health / shipMaxHealth);
+            UIControl.instance.UpdateHealth((float)currentHealth / maxHealth);
         }
     }
 
     public override void Die()
     {
         // Player lost, restart game
-        WaveSpawner.instance.AllowSpawning(false);
-        GameControls.instance.isPlayerDead = true;
-        base.Die();
+        GameControls.instance.EndScreen();
     }
 }
