@@ -5,7 +5,7 @@ using UnityEngine;
 public class StalkerBrain : BaseBrain
 {
     public float rangeToFlee = 5.0f;
-    public float strageMult = .5f;
+    public float strafeMult = .5f;
 
     private float rVelocity;
     private Vector2 mVelocity;
@@ -14,7 +14,7 @@ public class StalkerBrain : BaseBrain
     {
         Vector2 dir = PlayerMovement.pos - rb.position;
         float rAmount = Vector3.Cross(dir, transform.up).z;
-        rVelocity = -rAmount * stats.RotationSpeed;
+        rVelocity = -rAmount * ship.stats.RotationSpeed;
 
         if (IsRanged)
         {
@@ -23,25 +23,25 @@ public class StalkerBrain : BaseBrain
             if (dist < rangeToFlee)
             {
                 // Flee
-                mVelocity = (transform.up * -1.0f) * stats.MovementSpeed;
+                mVelocity = (transform.up * -1.0f) * ship.stats.MovementSpeed;
             }
-            else if (dist < stats.Range)
+            else if (dist < ship.stats.Range)
             {
                 // Strafe
-                mVelocity = (transform.right + (transform.up * 0.01f)) * stats.MovementSpeed * strageMult;
+                mVelocity = (transform.right + (transform.up * 0.01f)) * ship.stats.MovementSpeed * strafeMult;
 
                 // Shoot only when in range
-                Shoot();
+                ship.Shoot();
             }
             else
             {
                 // Move to target
-                mVelocity = transform.up * stats.MovementSpeed;
+                mVelocity = transform.up * ship.stats.MovementSpeed;
             }
         }
         else
         {
-            mVelocity = transform.up * stats.MovementSpeed;
+            mVelocity = transform.up * ship.stats.MovementSpeed;
         }
     }
 
@@ -49,17 +49,5 @@ public class StalkerBrain : BaseBrain
     {
         rb.AddTorque(rVelocity);
         rb.AddForce(mVelocity);
-    }
-
-    public override int CalcDmg(bool isBodyDamage)
-    {
-        if (isBodyDamage)
-        {
-            return (int)stats.BodyDmg;
-        }
-        else
-        {
-            return (int)stats.BulletDmg;
-        }
     }
 }

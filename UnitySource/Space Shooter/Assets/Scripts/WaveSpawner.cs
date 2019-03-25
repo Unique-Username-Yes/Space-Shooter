@@ -6,6 +6,7 @@ public class WaveSpawner : MonoBehaviour
 {
     public static WaveSpawner instance;
 
+
     public float spawnRadius = 10.0f;
     private Wave currentWave;
 
@@ -70,7 +71,7 @@ public class WaveSpawner : MonoBehaviour
         }
     }
 
-    private void RemoveAllEnemyShips()
+    public void RemoveAllEnemyShips()
     {
         foreach(var enemyShip in enemyShips)
         {

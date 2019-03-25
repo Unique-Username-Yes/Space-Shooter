@@ -43,7 +43,7 @@ public class RammerBrain : BaseBrain
                 {
                     currentDistTraveled += Vector2.Distance(rb.position, lastPos);
                     lastPos = rb.position;
-                    mVelocity = transform.up * stats.MovementSpeed;
+                    mVelocity = transform.up * ship.stats.MovementSpeed;
 
                     if((distToTravel+Random.Range(midAdditionalDist,maxAdditionalDist))<= currentDistTraveled)
                     {
@@ -56,7 +56,7 @@ public class RammerBrain : BaseBrain
                 {
                     Vector2 dir = (PlayerMovement.pos - rb.position);
                     float rAmount = Vector3.Cross(dir, transform.up).z;
-                    rVelocity = -rAmount * stats.RotationSpeed;
+                    rVelocity = -rAmount * ship.stats.RotationSpeed;
                     timeToRotate -= Time.deltaTime;
                     break;
                 }
@@ -76,10 +76,5 @@ public class RammerBrain : BaseBrain
     {
         rb.AddTorque(rVelocity);
         rb.AddForce(mVelocity);
-    }
-
-    public override int CalcDmg(bool isBodyDamage)
-    {
-        throw new System.NotImplementedException();
     }
 }

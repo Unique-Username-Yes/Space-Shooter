@@ -12,11 +12,11 @@ public abstract class BaseBrain : MonoBehaviour
      * ? Have dmg calculation method
      * 
      */
-    public EnemyStats stats;
 
     // ---------------------------------------------------------- Ranged
-    public BaseWeapon weapon;
-    public bool IsRanged { get => weapon != null; }
+    public bool IsRanged { get => ship.weapon != null; }
+
+    protected BaseShip ship;
 
     protected Transform firePoint;
     protected float timeToFire;
@@ -33,17 +33,19 @@ public abstract class BaseBrain : MonoBehaviour
         firePoint = transform.Find("FirePoint");
         if (!firePoint)
             Debug.LogError("No Firepoint found in base brain");
+
+        ship = GetComponent<BaseShip>();
+        if (!ship)
+            Debug.LogError("No base ship found in base brain");
     }
 
-    protected virtual void Shoot()
-    {
-        if (Time.time > timeToFire)
-        {
-            timeToFire = Time.time + 1 / stats.FireRate;
+    //protected void Shoot()
+    //{
+    //    //if (Time.time > timeToFire)
+    //    //{
+    //    //    timeToFire = Time.time + 1 / stats.FireRate;
 
-            weapon.Pewpew(firePoint);
-        }
-    }
-
-    public abstract int CalcDmg(bool isBodyDamage);
+    //    //    // TODO: Instantiate bullet here
+    //    //}
+    //}
 }

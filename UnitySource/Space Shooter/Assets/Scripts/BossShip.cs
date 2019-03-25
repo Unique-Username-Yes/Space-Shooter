@@ -6,21 +6,19 @@ public class BossShip : BaseShip
 {
     public string bossName;
     public float pushForce = 1.0f;
-    public int shipHealth;
     public int collisionDmg;
     public int pt;
 
     private void Start()
     {
-        health = shipHealth;
         UIControl.instance.ShowBossStats(true);
-        UIControl.instance.UpdateBossStats((float)health / shipHealth,bossName);
+        UIControl.instance.UpdateBossStats((float)currentHealth / maxHealth,bossName);
     }
 
     public override void TakeDamage(int dmg)
     {
         base.TakeDamage(dmg);
-        UIControl.instance.UpdateBossStats((float)health / shipHealth, bossName);
+        UIControl.instance.UpdateBossStats((float)currentHealth / maxHealth, bossName);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -42,8 +40,9 @@ public class BossShip : BaseShip
     {
         // Reward player for killing this unit
         // TODO: implement
-        PlayerProgression.instance.ExpForBoss();
+        //PlayerProgression.instance.ExpForBoss();
         WaveSpawner.instance.BossDefeated();
+        PlayerProgression.instance.LevelUp();
         base.Die();
     }
 }

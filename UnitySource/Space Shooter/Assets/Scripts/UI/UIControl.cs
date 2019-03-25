@@ -16,7 +16,7 @@ public class UIControl : MonoBehaviour
     private Slider healthSlider;
     private Text level;
 
-    private bool isUpgradesActive = false;
+    private PlayerShip pShip;
 
     private void Awake()
     {
@@ -41,6 +41,10 @@ public class UIControl : MonoBehaviour
         bossStats = transform.Find("BossStats");
         if (!bossStats)
             Debug.LogError("Boss stats ui not found");
+
+        pShip = GameObject.Find("Player").GetComponent<PlayerShip>();
+        if (!pShip)
+            Debug.LogError("No player ship in UIControls found");
 
         ShowUpgrades(false);
         ShowBossStats(false);
@@ -85,9 +89,9 @@ public class UIControl : MonoBehaviour
     }
     public void UpdateUpgradePanel()
     {
-        Stats pStats = PlayerProgression.instance.playerStats;
+        Stats pStats = pShip.stats;
         // Update points
-        shipStats.Find("UpgradePoints").GetComponent<Text>().text = pStats.CurrentUpgradePoints.ToString();
+        shipStats.Find("UpgradePoints").GetComponent<Text>().text = $"+{PlayerProgression.instance.upgradePoints}";
         // Update sliders
         float maxUp = pStats.MaxUpgrades;
         UpdateSlider("FireRateUpgrade", pStats.FireRateUpgrades / maxUp);

@@ -3,22 +3,51 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class BaseShip : MonoBehaviour
+public abstract class BaseShip : MonoBehaviour
 {
-    protected int health;
+    public Stats stats;
+    public BaseWeapon weapon;
+    public float bodyDmg;
+
+    public int MaxHealth
+    {
+        get => maxHealth;
+        set
+        {
+            maxHealth = value;
+            currentHealth = maxHealth;
+        }
+    }
+
+    protected int maxHealth;
+    public int currentHealth;
+
+    protected float timeToFire;
     protected Rigidbody2D rb;
+    protected Transform firePoint;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         if (!rb)
-            Debug.LogError("Rigid body not found in BaseShip");
+            Debug.LogError("No rigid body found in base ship");
+
+        firePoint = transform.Find("FirePoint");
+        if (!firePoint)
+            Debug.LogError("No firepoint found in base ship");
+
+        MaxHealth = (int)stats.MaxHealth;
+    }
+
+    public void ResetHealth()
+    {
+        currentHealth = maxHealth;
     }
 
     public virtual void TakeDamage(int dmg)
     {
-        health -= dmg;
-        if (health <= 0)
+        currentHealth -= dmg;
+        if (currentHealth <= 0)
         {
             Die();
         }
@@ -27,5 +56,29 @@ public class BaseShip : MonoBehaviour
     public virtual void Die()
     {
         Destroy(gameObject);
+    }
+
+    public virtual void Shoot()
+    {
+        if (Time.time > timeToFire)
+        {
+            timeToFire = Time.time + 1 / stats.FireRate + weapon.weaponFireRateBonus;
+            // TODO: Instantiate bullet here
+            GameObject bullet = Instantiate(weapon.bulletP, firePoint.position, firePoint.rotation);
+            bullet.transform.parent = transform;
+
+            rb.AddForce((firePoint.up * -1) * weapon.recoil);
+        }
+    }
+    public virtual int CalcDmg(bool IsRangedAttack)
+    {
+        if (IsRangedAttack)
+        {
+            return (int)(stats.BulletDmg+weapon.bulletSpeedBonus);
+        }
+        else
+        {
+            return (int)stats.BodyDmg;
+        }
     }
 }

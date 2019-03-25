@@ -96,9 +96,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eebdbb9a26238c84391036ae3db76ac4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats:
+    baseRange: 20
+    baseMaxHeal: 100
+    baseFireRate: 5
+    baseBulletDmg: 15
+    baseBulletSpeed: 15
+    baseMovementSpeed: 50
+    baseBodyDmg: 15
+    baseRotationSpeed: 3
+  weapon: {fileID: 0}
+  bodyDmg: 0
+  currentHealth: 0
   bossName: Rammer
   pushForce: 500
-  shipHealth: 500
   collisionDmg: 27
   pt: 0
 --- !u!114 &5508043977414932213
@@ -113,16 +124,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbe736c08713b2c4fb22660557489ec1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats:
-    baseRange: 20
-    baseMaxHeal: 100
-    baseFireRate: 1
-    baseBulletDmg: 15
-    baseBulletSpeed: 15
-    baseMovementSpeed: 70
-    baseBodyDmg: 15
-    baseRotationSpeed: 1
-  weapon: {fileID: 0}
   midAdditionalDist: 5
   maxAdditionalDist: 10
   timeToRotate: 0
