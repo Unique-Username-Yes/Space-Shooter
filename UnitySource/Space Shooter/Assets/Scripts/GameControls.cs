@@ -36,13 +36,13 @@ public class GameControls : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Comma))
         {
-            PlayerProgression.instance.NextLvl();
+            PlayerProgression.instance.LevelUp();
         }
 
         if (Input.GetKeyDown(KeyCode.Period))
         {
             Debug.Log("Pressed");
-            PlayerProgression.instance.GiveUpgradePoints();
+            PlayerProgression.instance.GiveUpgradePoints(5);
         }
     }
 
@@ -53,7 +53,6 @@ public class GameControls : MonoBehaviour
 
     public void ResetGame()
     {
-        Debug.Log("Reset");
         SceneManager.LoadScene(mainSceneIndex);
     }
 

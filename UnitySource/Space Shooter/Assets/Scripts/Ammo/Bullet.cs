@@ -4,45 +4,35 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float bulletSpeed;
-    public float bulletRange;
-    public int bulletDamage;
-    public bool isEnemyBullet = false;
-
-    private float distTraveled = 0.0f;
-    private Vector2 initialPos;
-    private Vector2 currentPos;
     private Rigidbody2D rb;
+
+    private BaseShip ship;
+    private Stats stats;
+
+    private GameObject effect;
 
     private void Awake()
     {
-        // Position of bullet
-        initialPos = transform.position;
-        currentPos = initialPos;
-
-        // Bullet body
         rb = GetComponent<Rigidbody2D>();
         if (!rb)
             Debug.LogError("No bullet body found");
-
-        // TODO: play around with torque
-
-        // Bullet moves forward using physics
-        
     }
 
     private void Start()
     {
-        rb.velocity = transform.up * bulletSpeed;
+        ship = transform.parent.parent.GetComponent<BaseShip>();
+        if (!ship)
+            Debug.LogError("No base ship found in bullet");
+
+        stats = ship.stats;
+        effect = ship.effects;
+        rb.velocity = transform.up * (stats.BulletSpeed+ship.weapon.bulletSpeedBonus);
+        transform.parent.parent = null;
     }
 
     private void Update()
     {
-        // Update currentPos
-        currentPos = transform.position;
-        distTraveled = ((currentPos.x - initialPos.x) * (currentPos.x - initialPos.x)) 
-            + ((currentPos.y - initialPos.y) * (currentPos.y - initialPos.y));
-        if (distTraveled >= bulletRange * bulletRange)
+        if (Vector2.Distance(transform.parent.position,transform.position) >= (stats.Range + ship.weapon.weaponRangeBonus))
         {
             // Bullet range reached
             Remove(gameObject);
@@ -51,14 +41,14 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
-        if (isEnemyBullet)
+        if (ship as EnemyShip)
         {
+            Debug.Log("Enemy bullet collision found");
             // Bullet belongs to enemy - Deal damage only to player ship
             PlayerShip pShip = collision.GetComponent<PlayerShip>();
             if (pShip)
             {
-                pShip.TakeDamage(bulletDamage);
+                pShip.TakeDamage(ship.CalcDmg(true));
                 Remove(gameObject);
             }
         }
@@ -68,7 +58,7 @@ public class Bullet : MonoBehaviour
             EnemyShip eShip = collision.GetComponent<EnemyShip>();
             if (eShip)
             {
-                eShip.TakeDamage(bulletDamage);
+                eShip.TakeDamage(ship.CalcDmg(true));
                 Remove(gameObject);
                 return;
             }
@@ -76,7 +66,7 @@ public class Bullet : MonoBehaviour
             BossShip bShip = collision.GetComponent<BossShip>();
             if (bShip)
             {
-                bShip.TakeDamage(bulletDamage);
+                bShip.TakeDamage(ship.CalcDmg(true));
                 Remove(gameObject);
                 return;
             }
@@ -85,7 +75,10 @@ public class Bullet : MonoBehaviour
 
     private void Remove(GameObject obj)
     {
-        // Destroy shell
+        GameObject effectEn = Instantiate(effect, transform.position, Quaternion.identity);
+        effectEn.GetComponent<ParticleSystem>().Play();
+
+        Destroy(effectEn, 5.0f);
         Destroy(obj.transform.parent.gameObject);
     }
 }

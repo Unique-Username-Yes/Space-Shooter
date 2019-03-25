@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Cannon
   m_EditorClassIdentifier: 
   bulletP: {fileID: 107116502603177093, guid: 76b1f44e5e7d47e4dae9d7c3ec1b0a79, type: 3}
-  recoil: 50
-  range: 20
-  bulletDmg: 15
-  bulletSpeed: 15
+  recoil: 25
+  weaponDmgBonus: 0
+  weaponFireRateBonus: 0
+  weaponRangeBonus: 0
+  bulletSpeedBonus: 0
