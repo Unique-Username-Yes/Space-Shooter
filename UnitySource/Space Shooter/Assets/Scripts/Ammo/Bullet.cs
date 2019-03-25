@@ -9,6 +9,8 @@ public class Bullet : MonoBehaviour
     private BaseShip ship;
     private Stats stats;
 
+    private GameObject effect;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -23,6 +25,7 @@ public class Bullet : MonoBehaviour
             Debug.LogError("No base ship found in bullet");
 
         stats = ship.stats;
+        effect = ship.effects;
         rb.velocity = transform.up * (stats.BulletSpeed+ship.weapon.bulletSpeedBonus);
         transform.parent.parent = null;
     }
@@ -72,6 +75,10 @@ public class Bullet : MonoBehaviour
 
     private void Remove(GameObject obj)
     {
+        GameObject effectEn = Instantiate(effect, transform.position, Quaternion.identity);
+        effectEn.GetComponent<ParticleSystem>().Play();
+
+        Destroy(effectEn, 5.0f);
         Destroy(obj.transform.parent.gameObject);
     }
 }

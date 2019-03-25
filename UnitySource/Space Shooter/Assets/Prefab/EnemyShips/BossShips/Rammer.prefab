@@ -96,9 +96,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eebdbb9a26238c84391036ae3db76ac4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  effects: {fileID: 5202492984224696724, guid: 4c9d6f0218b495e4cbc003f93e62ef62, type: 3}
   stats:
     baseRange: 20
-    baseMaxHeal: 100
+    baseMaxHeal: 500
     baseFireRate: 5
     baseBulletDmg: 15
     baseBulletSpeed: 15
@@ -106,7 +107,6 @@ MonoBehaviour:
     baseBodyDmg: 15
     baseRotationSpeed: 3
   weapon: {fileID: 0}
-  bodyDmg: 0
   currentHealth: 0
   bossName: Rammer
   pushForce: 500

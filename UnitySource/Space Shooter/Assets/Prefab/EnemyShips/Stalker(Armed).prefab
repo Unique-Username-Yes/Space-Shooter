@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 4930758798329389312}
   - component: {fileID: 4930758798329389314}
   - component: {fileID: 477462420}
-  - component: {fileID: 4540113172333803182}
+  - component: {fileID: 2106726080055030488}
   m_Layer: 0
   m_Name: Stalker(Armed)
   m_TagString: Untagged
@@ -161,22 +161,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8984ea4c950e27544a991f4cd0f60e3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  effects: {fileID: 5202492984224696724, guid: 4c9d6f0218b495e4cbc003f93e62ef62, type: 3}
   stats:
-    baseRange: 15
-    baseMaxHeal: 100
-    baseFireRate: 1
-    baseBulletDmg: 15
-    baseBulletSpeed: 15
+    baseRange: 25
+    baseMaxHeal: 70
+    baseFireRate: 0.3
+    baseBulletDmg: 13
+    baseBulletSpeed: 5
     baseMovementSpeed: 3
-    baseBodyDmg: 15
-    baseRotationSpeed: 20
+    baseBodyDmg: 3
+    baseRotationSpeed: 5
   weapon: {fileID: 11400000, guid: 549ac6dc126dd7c4dac1121a9b705f1c, type: 2}
-  bodyDmg: 10
   currentHealth: 0
   ptCollisionPenalty: 0.5
   pt: 23
---- !u!58 &4540113172333803182
-CircleCollider2D:
+--- !u!60 &2106726080055030488
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -188,6 +188,21 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.25, y: -0.18}
-  serializedVersion: 2
-  m_Radius: 2.72
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 10.971428, y: 6.171428}
+    newSize: {x: 10.971428, y: 6.171428}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.40545368, y: -2.6202638}
+      - {x: 0.22990799, y: -2.657394}
+      - {x: 1.0152254, y: -2.603347}
+      - {x: 1.6584721, y: -2.4884207}
+      - {x: 0.22724438, y: 2.347228}
+      - {x: -1.2060404, y: -2.4925292}

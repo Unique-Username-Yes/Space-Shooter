@@ -1,4 +1,6 @@
-﻿[System.Serializable]
+﻿using UnityEngine;
+
+[System.Serializable]
 public class Stats
 {
     public int MaxUpgrades { get; } = 8;
@@ -21,7 +23,7 @@ public class Stats
 
     protected float rangeMult = 4.0f;
     protected float healthMult = 20.0f;
-    protected float fireRateMult = 1.0f;
+    protected float fireRateMult = .2f;
     protected float bulletDmgMult = 2.0f;
     protected float bulletSpeedMult = 1.0f;
     protected float movementSpeedMult = 1.0f;
@@ -57,6 +59,7 @@ public class Stats
             if (HealthUpgrades < MaxUpgrades)
             {
                 HealthUpgrades++;
+                Debug.Log(HealthUpgrades);
                 return true;
             }
             else

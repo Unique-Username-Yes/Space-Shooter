@@ -11,12 +11,14 @@ public class UIControl : MonoBehaviour
     private Transform playerStats;
     private Transform shipStats;
     private Transform bossStats;
+    private Transform debugStats;
 
     private Slider levelSlider;
     private Slider healthSlider;
     private Text level;
 
     private PlayerShip pShip;
+    bool isFpsPanelOn = false;
 
     private void Awake()
     {
@@ -42,17 +44,29 @@ public class UIControl : MonoBehaviour
         if (!bossStats)
             Debug.LogError("Boss stats ui not found");
 
+        debugStats = transform.Find("DebugStats");
+        if (!debugStats)
+            Debug.LogError("Debug stats ui not found");
+
         pShip = GameObject.Find("Player").GetComponent<PlayerShip>();
         if (!pShip)
             Debug.LogError("No player ship in UIControls found");
 
         ShowUpgrades(false);
         ShowBossStats(false);
+        ShowFPS(false);
     }
 
-    private void Start()
+    private void Update()
     {
+        UpdateFPS((1f / Time.unscaledDeltaTime));
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.F))
+            ShowFPS(!isFpsPanelOn);
+    }
 
+    public void UpdateFPS(float fps)
+    {
+        debugStats.Find("FPS").GetComponent<Text>().text = $"Fps: {fps}";
     }
 
     public void ShowBossStats(bool value)
@@ -87,6 +101,14 @@ public class UIControl : MonoBehaviour
             UpdateUpgradePanel();
         shipStats.gameObject.SetActive(value);
     }
+
+    public void ShowFPS(bool value)
+    {
+        Debug.Log(value);
+        isFpsPanelOn = value;
+        debugStats.gameObject.SetActive(value);
+    }
+
     public void UpdateUpgradePanel()
     {
         Stats pStats = pShip.stats;
@@ -99,7 +121,8 @@ public class UIControl : MonoBehaviour
         UpdateSlider("BulletDamageUpgrade", pStats.BulletDmgUpgrades / maxUp);
         UpdateSlider("RangeUpgrade", pStats.RangeUpgrades / maxUp);
         UpdateSlider("MovementSpeedUpgrade", pStats.MovementSpeedUpgrades / maxUp);
-        UpdateSlider("MaxHealthUpgrade", pStats.HealthUpgrades / maxUp);
+        //UpdateSlider("MaxHealthUpgrade", pStats.HealthUpgrades / maxUp);
+        shipStats.Find("MaxHealthUpgrade").Find("Slider").GetComponent<Slider>().value = pStats.HealthUpgrades / maxUp;
     }
 
     private void UpdateSlider(string sliderName, float value)

@@ -57,6 +57,7 @@ public class PlayerProgression : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
+                Debug.Log("GIVING HELTH");
                 if (pStats.GiveHealthUpgrade)
                     upgradePoints--;
             }

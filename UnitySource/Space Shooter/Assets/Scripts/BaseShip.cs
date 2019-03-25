@@ -5,9 +5,9 @@ using UnityEngine;
 
 public abstract class BaseShip : MonoBehaviour
 {
+    public GameObject effects;
     public Stats stats;
     public BaseWeapon weapon;
-    public float bodyDmg;
 
     public int MaxHealth
     {
@@ -55,6 +55,9 @@ public abstract class BaseShip : MonoBehaviour
 
     public virtual void Die()
     {
+        GameObject effect_obj = Instantiate(effects, transform.position, Quaternion.identity);
+        effect_obj.GetComponent<ParticleSystem>().Play();
+        Destroy(effect_obj, 5.0f);
         Destroy(gameObject);
     }
 
