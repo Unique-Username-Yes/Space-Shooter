@@ -7,4 +7,5 @@ Control and upgrade space ship while defending against waves of enemy ships
 - Upgrading weapon: Top numbers 1-6
 - Reset game: "R"
 - Quick level up: ","(<)
+- Show FPS: "CTRL" + "F"
 - Exit game: "Esc"
